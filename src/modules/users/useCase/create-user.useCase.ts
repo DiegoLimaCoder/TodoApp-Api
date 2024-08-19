@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/infra/database/prisma.service';
 import { CreateUserDto } from '../dto/user.dto';
 
@@ -14,7 +14,7 @@ export class CreateUserUserCase {
     });
 
     if (user) {
-      throw new Error('User already Exist');
+      throw new HttpException('users already exist!', HttpStatus.BAD_REQUEST);
     }
 
     await this.prisma.user.create({ data });
