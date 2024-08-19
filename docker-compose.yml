@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: crud_nest_pg
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: TodoApp
+      PGDATA: /data/postgres
+    ports:
+      - 5433:5432
+    volumes:
+      - ./data/pg:/data/postgres
