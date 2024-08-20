@@ -11,7 +11,7 @@ import { UserPrismaRepository } from '../users/repositories/prisma/user.prisma.r
     JwtModule.register({
       global: true,
       secret: 'App_Todo',
-      signOptions: { expiresIn: '60d' },
+      signOptions: { expiresIn: '60s' },
     }),
   ],
   controllers: [LoginController],
