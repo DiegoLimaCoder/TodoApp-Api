@@ -1,21 +1,17 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SignInDto } from '../dto/sign-in.dto';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/infra/database/prisma.service';
 import { compare } from 'bcrypt';
+import { IUserRepository } from 'src/modules/users/repositories/user.repository';
 
 @Injectable()
 export class SignInUseCase {
   constructor(
     private jwtService: JwtService,
-    private prisma: PrismaService,
+    private userRepository: IUserRepository,
   ) {}
   async execute(data: SignInDto) {
-    const user = await this.prisma.user.findFirst({
-      where: {
-        username: data.username,
-      },
-    });
+    const user = await this.userRepository.findByUsername(data.username);
 
     if (!user) {
       throw new UnauthorizedException();
